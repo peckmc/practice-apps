@@ -38,6 +38,21 @@ module.exports.editItem = (id, w, d) => {
   });
 }
 
+module.exports.saveItem = (w, d) => {
+  return savePromise = new Promise(function (resolve, reject) {
+    Word.create({ word: w, definition: d })
+    .then(result => {
+      return Word.find({})
+    })
+    .then(result => {
+      resolve(result);
+    })
+    .catch(err => {
+      reject(err);
+    })
+  });
+}
+
 module.exports.deleteItem = (id) => {
   return deletePromise = new Promise(function (resolve, reject) {
     return Word.deleteOne({ _id: id })

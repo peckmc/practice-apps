@@ -36,7 +36,13 @@ svg {
   max-width: 100%;
 }
 
-input,
+input {
+  width:100%;
+}
+#submitword {
+  width: 10%;
+}
+
 button,
 textarea,
 table {

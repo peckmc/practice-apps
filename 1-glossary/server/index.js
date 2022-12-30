@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { getGlossary, editItem, deleteItem } = require('./db.js');
+const { getGlossary, editItem, deleteItem, saveItem } = require('./db.js');
 
 const express = require('express');
 const app = express();
@@ -20,6 +20,16 @@ app.get('/glossary', function(req, res) {
 
 app.post('/save', function(req, res) {
   editItem(req.body.id, req.body.newWord, req.body.newDef)
+  .then(newGlossary => {
+    res.status(200).send(newGlossary);
+  })
+  .catch(error => {
+    res.status(500).send('Database error saving item');
+  })
+});
+
+app.post('/savenew', function(req, res) {
+  saveItem(req.body.newWord, req.body.newDef)
   .then(newGlossary => {
     res.status(200).send(newGlossary);
   })
