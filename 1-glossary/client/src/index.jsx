@@ -20,7 +20,7 @@ function App () {
   return (
     <div>
       <h1>Glossary App</h1>
-      <div>{!loadingState && <WordList list={glossary}/>}</div>
+      <div>{!loadingState && <WordList list={glossary} setGlossary={setGlossary}/>}</div>
     </div>
   );
 }

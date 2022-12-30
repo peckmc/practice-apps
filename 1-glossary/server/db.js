@@ -22,5 +22,35 @@ module.exports.getGlossary = () => {
     })
   });
 }
+
+module.exports.editItem = (id, w, d) => {
+  return editPromise = new Promise(function (resolve, reject) {
+    Word.findByIdAndUpdate(id, { word: w, definition: d })
+    .then(result => {
+      return Word.find({})
+    })
+    .then(result => {
+      resolve(result);
+    })
+    .catch(err => {
+      reject(err);
+    })
+  });
+}
+
+module.exports.deleteItem = (id) => {
+  return deletePromise = new Promise(function (resolve, reject) {
+    return Word.deleteOne({ _id: id })
+    .then(result => {
+      return Word.find({})
+    })
+    .then(result => {
+      resolve(result);
+    })
+    .catch(err => {
+      reject(err);
+    })
+  });
+}
 // 3. Export the models
 // 4. Import the models into any modules that need them
