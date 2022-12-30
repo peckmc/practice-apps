@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import WordList from './components/WordList.jsx';
 import NewWordForm from './components/NewWordForm.jsx';
+import SearchBox from './components/SearchBox.jsx';
 
 function App () {
   const [glossary, setGlossary] = useState([]);
@@ -21,6 +22,7 @@ function App () {
   return (
     <div>
       <h1>Glossary App</h1>
+      <div id='searchBox'><SearchBox setGlossary={setGlossary}/></div>
       <div>{!loadingState && <WordList list={glossary} setGlossary={setGlossary} />}</div>
       <h1></h1>
       <div><NewWordForm setGlossary={setGlossary}/></div>

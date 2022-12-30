@@ -67,5 +67,29 @@ module.exports.deleteItem = (id) => {
     })
   });
 }
+
+module.exports.search = (term) => {
+  return savePromise = new Promise(function (resolve, reject) {
+    Word.find({})
+    .then(result => {
+      return Word.find({
+        $or: [
+          {
+            word: {$regex : term}
+          },
+          {
+            definition: {$regex : term}
+          }
+        ]
+      })
+    })
+    .then(result => {
+      resolve(result);
+    })
+    .catch(err => {
+      reject(err);
+    })
+  });
+}
 // 3. Export the models
 // 4. Import the models into any modules that need them

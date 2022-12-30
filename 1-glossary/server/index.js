@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { getGlossary, editItem, deleteItem, saveItem } = require('./db.js');
+const { getGlossary, editItem, deleteItem, saveItem, search } = require('./db.js');
 
 const express = require('express');
 const app = express();
@@ -7,6 +7,16 @@ const port = 3000;
 
 app.use(express.static('./client/dist/'));
 app.use(express.json());
+
+app.post('/delete', function(req, res) {
+  deleteItem(req.body.id)
+  .then(newGlossary => {
+    res.status(200).send(newGlossary);
+  })
+  .catch(error => {
+    res.status(500).send('Database error deleting item');
+  })
+});
 
 app.get('/glossary', function(req, res) {
   getGlossary()
@@ -34,17 +44,17 @@ app.post('/savenew', function(req, res) {
     res.status(200).send(newGlossary);
   })
   .catch(error => {
-    res.status(500).send('Database error saving item');
+    res.status(500).send('Database error saving new item');
   })
 });
 
-app.post('/delete', function(req, res) {
-  deleteItem(req.body.id)
-  .then(newGlossary => {
-    res.status(200).send(newGlossary);
+app.post('/search', function(req, res) {
+  search(req.body.term)
+  .then(searchResults => {
+    res.status(200).send(searchResults);
   })
   .catch(error => {
-    res.status(500).send('Database error deleting item');
+    res.status(500).send('Database error saving new item');
   })
 });
 
